@@ -26,7 +26,6 @@ php bin/console server:run
 ```
 
 
-
 ## Doctrine / ORM
 - Installation
 ```sh
@@ -105,3 +104,25 @@ class InvitationsController extends Controller
 
 
 
+
+
+
+
+## CORS
+Installation
+```sh
+composer req cors
+```
+
+
+##  Decode and verify Amazon Cognito JWT tokens 
+Installation
+```sh
+// composer require web-token/jwt-framework
+// composer require web-token/jwt-bundle
+// composer require firebase/php-jwt
+composer require adhocore/jwt
+```
+
+Cognito jwks keys:
+https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_zminrYkRy/.well-known/jwks.json
