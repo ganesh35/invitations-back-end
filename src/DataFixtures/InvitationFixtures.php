@@ -33,7 +33,7 @@ class InvitationFixtures extends Fixture
 
 
     private function fakeUser(){ 
-        $array = ['ganesh35@gmail.com', 'ganesh.35@gmail.com'];
+        $array = ['ganesh35@gmail.com', 'ganesh.35@gmail.com', 'isotopian@outlook.com', 'steve@comcast.net', 'ducasse@outlook.com', 'matsn@icloud.com'];
         return $array[rand ( 0 , count($array) -1)];
     }
     private function fakeTitle(){ 

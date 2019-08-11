@@ -95,6 +95,28 @@ class InvitationsController extends Controller implements TokenAuthenticatedCont
         ]);
     }
 
+    /**
+     * @Route("/received", name="invitation.received", methods={"GET"})
+     */
+    public function received(Request $request)
+    {
+
+        $token = $request->attributes->get('auth_token');
+        $invitee_rows = $this->inviteeRepository->findBy(['invitationTo' => $token['email']]);
+
+        $invitationIds = [];
+        foreach($invitee_rows as $irow){
+            $invitationIds[] = $irow->getInvitationId();
+        }
+
+        $rows = $this->invitationRepository->findBy(['id' => $invitationIds] );
+        return $this->json([
+            'items' => $rows,
+            'invitee_rows' => $invitee_rows
+        ]);
+    }
+
+
 
     /**
      * Create a new record
