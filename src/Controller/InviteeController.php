@@ -119,7 +119,7 @@ class InviteeController extends Controller implements TokenAuthenticatedControll
                     $item->setCreatedAt(new \DateTime());
                     $item->setUpdatedAt(new \DateTime());
                     $item->setInvitationTo($mailId);
-                    $item->setStatus('Invited');
+                    $item->setStatus('invited');
                     $item->setInvitationId($invitation->getId());
                     $this->entityManager->persist($item);
                     $this->entityManager->flush();
@@ -142,4 +142,33 @@ class InviteeController extends Controller implements TokenAuthenticatedControll
         ]);
     }
 
+
+    /**
+     * Create a new record
+     * @Route("/{id}", name="invitee.patch", methods={"PATCH"})
+     */
+    public function patch(Invitee $item, Request $request)
+    {
+        $content = json_decode($request->getContent(), true);
+        $item->setUpdatedAt(new \DateTime());
+        $item->setStatus($content['status']);
+        $this->entityManager->persist($item);
+        $this->entityManager->flush();
+        return $this->json([
+            "item" => $item
+        ]);
+    }
+
+        /**
+     * Delete a specified record
+     * @Route("/{id}", name="invitee.delete", methods={"DELETE"})
+     */
+    public function delete(Invitee $item, Request $request)
+    {
+        $this->entityManager->remove($item);
+        $this->entityManager->flush();
+        return $this->json([
+            'message' => 'Record deleted successfully'
+        ]);
+    }      
 }

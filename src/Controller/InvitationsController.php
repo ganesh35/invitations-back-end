@@ -7,7 +7,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 use App\Lib\Paginator;
+use App\Entity\Invitee;
 use App\Entity\Invitation;
+use App\Repository\InviteeRepository;
 use App\Repository\InvitationRepository;
 
 use App\Controller\TokenAuthenticatedController;
@@ -26,6 +28,12 @@ class InvitationsController extends Controller implements TokenAuthenticatedCont
     private $invitationRepository;
 
     /**
+    * @var InviteeRepository InviteeRepository
+    */
+    private $inviteeRepository;
+
+
+    /**
     * @var entityManager EntityManagerInterface
     */
     private $entityManager;
@@ -37,10 +45,12 @@ class InvitationsController extends Controller implements TokenAuthenticatedCont
 
     public function __construct(
         InvitationRepository $invitationRepository,
+        InviteeRepository $inviteeRepository,
         EntityManagerInterface $entityManager,
         SerializerInterface $serializer
     ){
         $this->invitationRepository = $invitationRepository;
+        $this->inviteeRepository = $inviteeRepository;
         $this->entityManager = $entityManager;
         $this->serializer = $serializer;
     }
@@ -153,8 +163,17 @@ class InvitationsController extends Controller implements TokenAuthenticatedCont
      * Delete a specified record
      * @Route("/{id}", name="invitation.delete", methods={"DELETE"})
      */
-    public function delete(Invitation $item)
+    public function delete(Invitation $item, Request $request)
     {
+        $token = $request->attributes->get('auth_token');
+        if($token['email'] != $item->getCreatedBy()){
+            return $this->json(['error' => 'You not the owner of this invitation.']);            
+        }
+
+        $invitee_rows = $this->inviteeRepository->findBy(['invitationId' => $item->getId()]);
+        foreach($invitee_rows as $irow){
+            $this->entityManager->remove($irow);    
+        }
         $this->entityManager->remove($item);
         $this->entityManager->flush();
         return $this->json([
