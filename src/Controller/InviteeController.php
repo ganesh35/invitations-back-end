@@ -46,7 +46,7 @@ class InviteeController extends Controller implements TokenAuthenticatedControll
 
 
     /**
-     * @Route("/{id}", name="list", methods={"GET"})
+     * @Route("/{id}", name="invitee.list", methods={"GET"})
      */
     public function list(Invitation $invitation, Request $request)
     {
@@ -92,7 +92,7 @@ class InviteeController extends Controller implements TokenAuthenticatedControll
 
     /**
      * Create a new record
-     * @Route("/{id}", name="create", methods={"POST"})
+     * @Route("/{id}", name="invitee.create", methods={"POST"})
      */
     public function create(Invitation $invitation, Request $request)
     {

@@ -46,7 +46,7 @@ class InvitationsController extends Controller implements TokenAuthenticatedCont
     }
 
     /**
-     * @Route("/", name="list", methods={"GET"})
+     * @Route("/", name="invitation.list", methods={"GET"})
      */
     public function list(Request $request)
     {
@@ -88,7 +88,7 @@ class InvitationsController extends Controller implements TokenAuthenticatedCont
 
     /**
      * Create a new record
-     * @Route("", name="create", methods={"POST"})
+     * @Route("", name="invitation.create", methods={"POST"})
      */
     public function create(Request $request)
     {
@@ -124,7 +124,7 @@ class InvitationsController extends Controller implements TokenAuthenticatedCont
 
     /**
      * Replace entire record
-     * @Route("/{id}", name="update", methods={"PUT"})
+     * @Route("/{id}", name="invitation.update", methods={"PUT"})
      */
     public function update(Invitation $item, Request $request)
     {
@@ -151,7 +151,7 @@ class InvitationsController extends Controller implements TokenAuthenticatedCont
 
     /**
      * Delete a specified record
-     * @Route("/{id}", name="delete", methods={"DELETE"})
+     * @Route("/{id}", name="invitation.delete", methods={"DELETE"})
      */
     public function delete(Invitation $item)
     {
@@ -163,7 +163,7 @@ class InvitationsController extends Controller implements TokenAuthenticatedCont
     }            
 
     /**
-     * @Route("/{id}", name="read", methods={"GET"})
+     * @Route("/{id}", name="invitation.read", methods={"GET"})
      */
     public function read(Invitation $item)
     {
