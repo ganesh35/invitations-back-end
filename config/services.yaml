@@ -4,6 +4,21 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    pagination_records_per_page: 5   # default limit for the pagination
+    jwks: 
+        keys:
+        - alg: RS256
+          e: AQAB
+          kid: qx/CqYfPDqF7YLoD3MBMnvgXNSIJ3xKos2fusJjKEeA=
+          kty: RSA
+          n: nGvmCuqplmW8gNkGqa86XZ-Nd36-dJx9w_kcPlIMOby49FMETqhesK4cVrROigrTW7ue-V5oPQ6k27ZuGvWF5vVgtqZQmRTsYeRKEjUvosoYawhz93xEn90oop2UO_h1yfHyY81PHyAoimXQg-2g-JPY2LoPwR5GCA_bOiZTTTuyTBHqfuuWAdsSpa4ngnEB0pPoR5lPebxsGIdi4Bxg2cbXGW5CYL_XurUNU6sekyYW5O1iWCApeLaolDyM3dq3CSkajZpXN3d6ZDH2K8CA_DuWkQdRsIgBWude39XvX7QREofizpXAL7H59imRinqFzNzRzlE6ZBUGSz29ySChXw
+          use: sig
+        - alg: RS256
+          e: AQAB
+          kid: IINT22mFniVnHvI9zfX341qbx5r1196vpyYq+/6wgwA=
+          kty: RSA
+          n: lSyTHPiwmTp2Qe_qNlzDKQmGdjxWybuH7J2sLXTjnumwKBIRN2nVr6kEqCCy_n8WLNyGZzj9W_9YlOhOH3aUMadp6xvrm2j9NxDGutFLloeB9Be0TGu8NtVKQP_bwEZZnNnXXNFDNGSqoI-M0J2wQDQKZ9mAT9pafK5vAFnhaoYOitKvKfn7k4Tl2u9-jd-xySfyFXmpV2LuhOdqgGqJH-788V_5cVNCO5a4JL-JT6EdjB-oEnH23T0jf8IInBLhIN25qkKf46cJIjQDN7Rkj3s_jQ2qM69F6ajcEyOcdv8Qc-pFVJcpOiXhuswv7rHE6o4ySitNtK-d7QA2AM2HEw
+          use: sig
 
 services:
     # default configuration for services in *this* file
@@ -28,3 +43,19 @@ services:
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
+
+    App\EventSubscriber\TokenSubscriber:
+        arguments:
+            $keys:
+                - alg: RS256
+                  e: AQAB
+                  kid: qx/CqYfPDqF7YLoD3MBMnvgXNSIJ3xKos2fusJjKEeA=
+                  kty: RSA
+                  n: nGvmCuqplmW8gNkGqa86XZ-Nd36-dJx9w_kcPlIMOby49FMETqhesK4cVrROigrTW7ue-V5oPQ6k27ZuGvWF5vVgtqZQmRTsYeRKEjUvosoYawhz93xEn90oop2UO_h1yfHyY81PHyAoimXQg-2g-JPY2LoPwR5GCA_bOiZTTTuyTBHqfuuWAdsSpa4ngnEB0pPoR5lPebxsGIdi4Bxg2cbXGW5CYL_XurUNU6sekyYW5O1iWCApeLaolDyM3dq3CSkajZpXN3d6ZDH2K8CA_DuWkQdRsIgBWude39XvX7QREofizpXAL7H59imRinqFzNzRzlE6ZBUGSz29ySChXw
+                  use: sig
+                - alg: RS256
+                  e: AQAB
+                  kid: IINT22mFniVnHvI9zfX341qbx5r1196vpyYq+/6wgwA=
+                  kty: RSA
+                  n: lSyTHPiwmTp2Qe_qNlzDKQmGdjxWybuH7J2sLXTjnumwKBIRN2nVr6kEqCCy_n8WLNyGZzj9W_9YlOhOH3aUMadp6xvrm2j9NxDGutFLloeB9Be0TGu8NtVKQP_bwEZZnNnXXNFDNGSqoI-M0J2wQDQKZ9mAT9pafK5vAFnhaoYOitKvKfn7k4Tl2u9-jd-xySfyFXmpV2LuhOdqgGqJH-788V_5cVNCO5a4JL-JT6EdjB-oEnH23T0jf8IInBLhIN25qkKf46cJIjQDN7Rkj3s_jQ2qM69F6ajcEyOcdv8Qc-pFVJcpOiXhuswv7rHE6o4ySitNtK-d7QA2AM2HEw
+                  use: sig  
