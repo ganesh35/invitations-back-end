@@ -1,0 +1,48 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile
+    image: symfony
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - .:/srv/app
+    links:
+      - "mysql:mysql2"
+ #     - redis
+    environment:
+      DB_HOST: mysql
+      DB_DATABASE: symfony_docker
+      DB_USERNAME: app
+      DB_PASSWORD: password
+      REDIS_HOST: redis
+      SESSION_DRIVER: redis
+      CACHE_DRIVER: redis
+      DATABASE_URL: mysql://app:password@mysql2:3306/symfony_docker
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: symfony_docker
+      MYSQL_USER: app
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+#  redis:
+#    image: redis:4.0-alpine
+#    ports:
+#      - 16379:6379
+#  composer_installation:
+#    container_name: composer_installation
+#    image: composer
+#    volumes:
+#      - .:/srv/app
+#    command: composer install --ignore-platform-reqs
+
+#    command: mysql  -h 127.0.0.1 -u root -e "create database symfony_docker;"
+#    command: php bin/console make:migration
+#    command: php bin/console doctrine:migrations:migrate -n      
+#    command: php bin/console doctrine:fixtures:load -n

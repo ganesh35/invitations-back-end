@@ -46,7 +46,7 @@ class InviteeController extends Controller implements TokenAuthenticatedControll
 
 
     /**
-     * @Route("/{id}", name="invitee.list", methods={"GET"})
+     * @Route("/{id}", name="invitee.list", methods={"GET"}, requirements={"id":"\d+"})
      */
     public function list(Invitation $invitation, Request $request)
     {
